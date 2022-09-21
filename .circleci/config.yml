@@ -267,7 +267,7 @@ jobs:
       - run:
           name: Send migration results to memstash or kvdp.io
           command: |
-            if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
+            if grep -q "has been executed successfully." ./backend/migrations_dump.txt
             then
               echo "DB migration was successful, will update kvdb..."
               curl https://kvdb.io/YZaHDyFbFubg6D3BJPTQnG/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d 'success'
