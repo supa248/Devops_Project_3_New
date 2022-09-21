@@ -273,7 +273,7 @@ jobs:
             else
               echo "DB migration failed, please verify setup! Probably the database already exists. Verify setup!"  
               curl https://kvdb.io/YZaHDyFbFubg6D3BJPTQnG/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d 'failure'
-
+            fi
       - destroy-environment:
           workflowID: ${CIRCLE_WORKFLOW_ID:0:7}         
 #      # Here's where you will add some code to rollback on failure      
