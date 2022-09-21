@@ -236,13 +236,6 @@ jobs:
           command: |
             apk add --update ansible
             ansible --version
-            yum install sudo -y
-            sudo apt update
-            sudo apt install curl
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            unzip awscliv2.zip
-            sudo ./aws/install
-            aws --version
       - run:
           name: Configure server
           command: |
