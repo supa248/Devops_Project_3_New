@@ -212,9 +212,9 @@ jobs:
               --output text >> ./.circleci/ansible/inventory.txt
             cat ./.circleci/ansible/inventory.txt
       - persist_to_workspace:
-          root: .
+          root: ~/
           paths:
-            - ./.circleci/ansible/inventory.txt
+            - DEVOPS_PROJECT_3_NEW/.circleci/ansible/inventory.txt
       - destroy-environment:
           workflowID: ${CIRCLE_WORKFLOW_ID:0:7} 
                
@@ -229,7 +229,7 @@ jobs:
           fingerprints: 
             - "42:4e:8d:a7:0f:0d:c0:81:1f:6f:7d:65:d1:aa:e5:49"
       - attach_workspace:
-          at: .
+          at: ~/
       - run:
           name: Install dependencies
           command: |
@@ -248,21 +248,34 @@ jobs:
           workflowID: ${CIRCLE_WORKFLOW_ID:0:7}        
       # Here's where you will add some code to rollback on failure      
 
-#   run-migrations:
-#     docker:
-#       # Docker image here that supports NodeJS
-#     steps:
-#       # Checkout code from git
-#       - run:
-#           name: Run migrations
-#           command: |
-#             # Your code here
-#             exit 1
-#       - run:
-#           name: Send migration results to memstash
-#           command: |
-#             # Your code here
-#             exit 1
+  run-migrations:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [backend-build]
+      - attach_workspace:
+          at: ~/    
+      - run:
+          name: Run migrations
+          command: |
+            cd backend
+            npm install
+            npm run migration > migration_dump.txt
+      - run:
+          name: Send migration results to memstash or kvdp.io
+          command: |
+            if grep -q "has been executed successfully." ~/DEVOPS_PROJECT_3_NEW/backend/migrations_dump.txt
+            then
+              echo "DB migration was successful, will update kvdb..."
+              curl https://kvdb.io/YZaHDyFbFubg6D3BJPTQnG/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d 'success'
+            else
+              echo "DB migration failed, please verify setup! Probably the database already exists. Verify setup!"  
+              curl https://kvdb.io/YZaHDyFbFubg6D3BJPTQnG/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d 'failure'
+
+      - destroy-environment:
+          workflowID: ${CIRCLE_WORKFLOW_ID:0:7}         
 #      # Here's where you will add some code to rollback on failure      
 
 #   deploy-frontend:
