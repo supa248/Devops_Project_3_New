@@ -236,8 +236,8 @@ jobs:
           command: |
             apk add --update ansible
             ansible --version
-            sudo apt-get update && sudo apt-get install -yy less
-            sudo apt-get install unzip -y
+            apt-get update && sudo apt-get install -yy less
+            apt-get install unzip -y
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             unzip awscliv2.zip
             ./aws/install
