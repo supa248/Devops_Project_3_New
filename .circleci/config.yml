@@ -266,7 +266,7 @@ jobs:
           command: |
             
             npm install
-            npm run buiild
+            npm run build
             npm run migrations > migrations_status.txt
             cat ./migrations_status.txt
       - persist_to_workspace:
