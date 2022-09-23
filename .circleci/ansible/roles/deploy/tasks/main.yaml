@@ -5,7 +5,7 @@
     npm install -g npm@latest
 - name: Copy compiled files
   unarchive:
-    src: /root/project/backend.tar.gz
+    src: ../../backend/dist
     dest: /home/ubuntu/
 
 - name: Build backend
