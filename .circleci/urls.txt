@@ -1,0 +1,2 @@
+Github Repo: https://github.com/supa248/Devops_Project_3_New
+S3 Bucket: http://udapeople-a3b2cc2.s3-website-us-east-1.amazonaws.com
