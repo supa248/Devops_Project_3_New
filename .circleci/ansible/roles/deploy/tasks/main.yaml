@@ -5,6 +5,13 @@
     path: /home/ubuntu/backend
     state: directory
 
+- name: "install dependencies."
+  become: true
+  apt:
+    name: "nodejs"
+    state: latest
+    update_cache: yes
+
 - name: Upgrade npm
   become: true
   shell: |
@@ -14,6 +21,8 @@
   become: true
   apt:
     update_cache: yes
+
+
 
 - name: Copy artifact.tar.gz files
   unarchive:

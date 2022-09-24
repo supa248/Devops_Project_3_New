@@ -331,12 +331,11 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add tar gzip npm
+            apk add tar gzip nodejs npm
             apk add --update ansible
             apk add --no-cache curl
             apk add --no-cache openssh-client
             apk add --no-cache --upgrade bash
-            apk add nodejs=12.22.6-r0
             pip install awscli
           # apk upgrade
           # apk update
