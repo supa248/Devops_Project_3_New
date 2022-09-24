@@ -1,18 +1,29 @@
 ---
+
+- name: Creates directory
+  file:
+    path: /home/ubuntu/backend
+    state: directory
+
 - name: Upgrade npm
   become: true
   shell: |
     npm install -g npm@latest
 
-- name: Copy compiled files
+- name: "update apt packages."
+  become: true
+  apt:
+    update_cache: yes
+
+- name: Copy artifact.tar.gz files
   unarchive:
-    src: ../backend/artifact.tar.gz
-    dest: /home/ubuntu/
+    src: /root/project/artifact.tar.gz
+    dest: /home/ubuntu/backend
 
 - name: Build backend
   ignore_errors: yes
   shell: |
-    cd /home/ubuntu/artifact
+    cd /home/ubuntu/backend
     npm i
     npm run build
 
@@ -25,7 +36,7 @@
   become: true
   shell: |
     cd /home/ubuntu/backend
-    pm2 start npm --name artifact -- start
+    pm2 start npm --name backend -- start
     pm2 ls
   environment:
     ENVIRONMENT: production
