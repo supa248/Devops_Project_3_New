@@ -3,27 +3,29 @@
   become: true
   shell: |
     npm install -g npm@latest
+
 - name: Copy compiled files
   unarchive:
-    src: ../../backend/dist
+    src: ./backend/artifact.tar.gz
     dest: /home/ubuntu/
 
 - name: Build backend
   ignore_errors: yes
   shell: |
-    cd /home/ubuntu/backend
+    cd /home/ubuntu/artifact
     npm i
     npm run build
-- name: Stop and delete already running server
-  ignore_errors: yes
-  shell: |
-    pm2 stop backend
-    pm2 delete backend
+
+- name: delete anything that might already be running
+  become: true
+    command: pm2 delete all
+    ignore_errors: true
+
 - name: Start server
   become: true
   shell: |
     cd /home/ubuntu/backend
-    pm2 start npm --name backend -- start
+    pm2 start npm --name artifact -- start
     pm2 ls
   environment:
     ENVIRONMENT: production
