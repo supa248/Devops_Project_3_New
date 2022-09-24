@@ -6,7 +6,7 @@
 
 - name: Copy compiled files
   unarchive:
-    src: ./backend/artifact.tar.gz
+    src: ../backend/artifact.tar.gz
     dest: /home/ubuntu/
 
 - name: Build backend
