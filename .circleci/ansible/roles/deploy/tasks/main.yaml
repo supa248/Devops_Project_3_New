@@ -8,14 +8,14 @@
 - name: "install dependencies."
   become: true
   apt:
-    name: "nodejs"
+    name: ["nodejs", "npm"]
     state: latest
     update_cache: yes
 
-- name: Upgrade npm
-  become: true
-  shell: |
-    npm install -g npm@latest
+# - name: Upgrade npm
+#   become: true
+#   shell: |
+#     npm install -g npm@latest
 
 - name: "update apt packages."
   become: true
