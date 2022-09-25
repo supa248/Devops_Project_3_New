@@ -36,7 +36,6 @@ commands:
           # Add when this will run
           when: on_fail
           command: |
-            
             SUCCESS= $(curl --insecure  https://kvdb.io/9GE4jRtKznmVKRfvdBABBe/migration_<< parameters.workflow_id >>)
             echo $SUCCESS
             if(( "$SUCCESS" == 1 )); 
