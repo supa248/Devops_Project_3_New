@@ -36,7 +36,7 @@ commands:
           # Add when this will run
           when: on_fail
           command: |
-            SUCCESS= $(curl --insecure  https://kvdb.io/9GE4jRtKznmVKRfvdBABBe/migration_<< parameters.workflowID >>)
+            SUCCESS= $(curl --insecure  https://kvdb.io/PDKek3NAeNahXErCyiqLX4/migration_<< parameters.workflowID >>)
             echo $SUCCESS
             if(( "$SUCCESS" == 1 )); 
             then
@@ -287,8 +287,6 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/
       - run:
           name: Install dependencies
           command: |
