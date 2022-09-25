@@ -447,9 +447,9 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --update curl npm  
-            pip3 install --upgrade pip 
-            pip3 install awscli
+            yum install -y tar gzip curl
+            curl -sL https://rpm.nodesource.com/setup_10.x | bash -
+            yum install -y nodejs
       
       - run:
           name: Grab old stack workflow id
