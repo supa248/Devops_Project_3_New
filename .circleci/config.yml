@@ -267,7 +267,10 @@ jobs:
             npm run build
             npm run migrations > migrations_status.txt
             cat ./migrations_status.txt
-
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/backend
       - run:
           name: Send migration results to memstash or kvdb.io
           command: |
