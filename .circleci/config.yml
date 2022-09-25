@@ -473,7 +473,7 @@ jobs:
     docker:
       - image: amazon/aws-cli
     steps:
-      # Checkout code from git
+      - checkout
       - run:
           name: Get old stack workflow id
           command: |
@@ -521,24 +521,12 @@ workflows:
             branches:
               only: [main]
       - configure-infrastructure:
-          filters:
-            branches:
-              only: [main]
           requires: [deploy-infrastructure]
       - run-migrations:
-          filters:
-            branches:
-              only: [main]
           requires: [configure-infrastructure]
       - deploy-frontend:
-          filters:
-            branches:
-              only: [main]
           requires: [run-migrations]
       - deploy-backend:
-          filters:
-            branches:
-              only: [main]
           requires: [run-migrations]
       - smoke-test:
           requires: [deploy-backend, deploy-frontend]
