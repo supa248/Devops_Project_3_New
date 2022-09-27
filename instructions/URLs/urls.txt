@@ -1,3 +1,3 @@
 Github Repo: https://github.com/supa248/Devops_Project_3_New
-S3 Bucket: http://udapeople-c741948.s3-website-us-east-1.amazonaws.com
-Cloudfront Domain Name: d34f5hk4dbt7xw.cloudfront.net
+S3 Bucket: http://udapeople-6c9ce4c.s3-website-us-east-1.amazonaws.com
+Cloudfront Domain Name: http://d1bkg2g10ft8xz.cloudfront.net/
